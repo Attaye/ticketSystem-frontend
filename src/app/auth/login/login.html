@@ -1,1 +1,22 @@
-<p>login works!</p>
+<!-- src/app/auth/login/login.html -->
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-brand">Firma UG</div>
+
+    <div class="login-field">
+      <label for="username">User name</label>
+      <input id="username" type="text" [(ngModel)]="username" />
+    </div>
+
+    <div class="login-field">
+      <label for="password">Password</label>
+      <input id="password" type="password" [(ngModel)]="password" />
+    </div>
+
+    <div *ngIf="errorMessage" style="color:red; margin-top:8px; font-size:0.9rem;">
+      {{ errorMessage }}
+    </div>
+
+    <button class="btn-login" (click)="onLogin()">Login</button>
+  </div>
+</div>

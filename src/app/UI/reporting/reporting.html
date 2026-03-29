@@ -1,0 +1,44 @@
+<!-- src/app/UI/reporting/reporting.html -->
+<app-header></app-header>
+
+<div class="page-nav">
+  <span class="breadcrumb">Home &gt; Issue Reporting</span>
+  <button class="btn-back" (click)="goBack()">back</button>
+</div>
+
+<div class="main-content">
+  <div class="form-card">
+    <h1 class="form-title">Submit an Issue</h1>
+
+    <div class="form-group">
+      <label for="openedBy">Opend by</label>
+      <input id="openedBy" class="form-control" type="text" [(ngModel)]="form.openedBy" />
+    </div>
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" class="form-control" type="text" [(ngModel)]="form.title" />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Detailed description</label>
+      <textarea id="description" class="form-control" [(ngModel)]="form.description" rows="7"></textarea>
+    </div>
+
+    <div *ngIf="successMessage"
+         style="color:#065f46; background:#d1fae5; padding:10px 16px; border-radius:8px; margin-bottom:16px;">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage"
+         style="color:#92400e; background:#fef3c7; padding:10px 16px; border-radius:8px; margin-bottom:16px;">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-secondary" (click)="onCancel()">cancel</button>
+      <button class="btn-primary"   (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

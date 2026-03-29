@@ -1,0 +1,50 @@
+<!-- src/app/UI/tickets/tickets.html -->
+<app-header></app-header>
+
+<div class="page-nav">
+  <span class="breadcrumb">Home &gt; Tickets</span>
+  <button class="btn-back" (click)="goBack()">back</button>
+</div>
+
+<div class="main-content">
+  <div class="ticket-table-container">
+
+    <div class="section-divider">
+      <span>My on-going incidents</span>
+      <span>My resolved/ closed incidents</span>
+    </div>
+
+    <div class="table-header">
+      <span>Number</span>
+      <span>Titel</span>
+      <span>Opened</span>
+      <span>status</span>
+      <span>Discription</span>
+    </div>
+
+    <!-- Ongoing tickets -->
+    <div
+      *ngFor="let ticket of ongoingTickets"
+      class="ticket-row"
+      (click)="openTicket(ticket.id)"
+    >
+      <span>{{ ticket.number }}</span>
+      <span>{{ ticket.title }}</span>
+      <span>{{ ticket.opened }}</span>
+      <span>
+        <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
+          {{ ticket.status }}
+        </span>
+      </span>
+      <span>{{ ticket.description }}</span>
+    </div>
+
+    <div *ngIf="ongoingTickets.length === 0"
+         style="padding:20px; color:var(--text-muted); text-align:center;">
+      No ongoing tickets found.
+    </div>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

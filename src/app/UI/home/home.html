@@ -1,0 +1,26 @@
+<!-- src/app/UI/home/home.html -->
+<app-header></app-header>
+
+<div class="main-content">
+
+  <!-- SUPPORT role only: All Tickets card at the top -->
+  <div *ngIf="isSupport" class="card-nav-full" (click)="goToAllTickets()">
+    <h2>All Tickets</h2>
+    <p>Track the progress of all Open issues</p>
+  </div>
+
+  <!-- All users: 2 cards -->
+  <div class="card-grid">
+    <div class="card-nav" (click)="goToMyTickets()">
+      <h2>My Tickets</h2>
+      <p>Track the progress of your already registered issues</p>
+    </div>
+    <div class="card-nav" (click)="goToReporting()">
+      <h2>Issues Reporting</h2>
+      <p>i.e. Services, Hardware or Software have stopped working</p>
+    </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>
