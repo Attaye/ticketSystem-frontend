@@ -9,9 +9,20 @@
 <div class="main-content">
   <div class="ticket-table-container">
 
+    <!-- TAB-Auswahl -->
     <div class="section-divider">
-      <span>My on-going incidents</span>
-      <span>My resolved/ closed incidents</span>
+      <span
+        [class.active-tab]="activeTab === 'ongoing'"
+        (click)="activeTab = 'ongoing'"
+        style="cursor:pointer;">
+        My on-going incidents ({{ ongoingTickets.length }})
+      </span>
+      <span
+        [class.active-tab]="activeTab === 'closed'"
+        (click)="activeTab = 'closed'"
+        style="cursor:pointer;">
+        My resolved/ closed incidents ({{ closedTickets.length }})
+      </span>
     </div>
 
     <div class="table-header">
@@ -23,26 +34,52 @@
     </div>
 
     <!-- Ongoing tickets -->
-    <div
-      *ngFor="let ticket of ongoingTickets"
-      class="ticket-row"
-      (click)="openTicket(ticket.id)"
-    >
-      <span>{{ ticket.number }}</span>
-      <span>{{ ticket.title }}</span>
-      <span>{{ ticket.opened }}</span>
-      <span>
-        <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
-          {{ ticket.status }}
+    <ng-container *ngIf="activeTab === 'ongoing'">
+      <div
+        *ngFor="let ticket of ongoingTickets"
+        class="ticket-row"
+        (click)="openTicket(ticket.id)"
+      >
+        <span>{{ ticket.number }}</span>
+        <span>{{ ticket.title }}</span>
+        <span>{{ ticket.createdAt?.substring(0, 10) }}</span>
+        <span>
+          <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
+            {{ ticket.status }}
+          </span>
         </span>
-      </span>
-      <span>{{ ticket.description }}</span>
-    </div>
+        <span>{{ ticket.description }}</span>
+      </div>
 
-    <div *ngIf="ongoingTickets.length === 0"
-         style="padding:20px; color:var(--text-muted); text-align:center;">
-      No ongoing tickets found.
-    </div>
+      <div *ngIf="ongoingTickets.length === 0"
+           style="padding:20px; color:var(--text-muted); text-align:center;">
+        No ongoing tickets found.
+      </div>
+    </ng-container>
+
+    <!-- Closed/Resolved tickets -->
+    <ng-container *ngIf="activeTab === 'closed'">
+      <div
+        *ngFor="let ticket of closedTickets"
+        class="ticket-row"
+        (click)="openTicket(ticket.id)"
+      >
+        <span>{{ ticket.number }}</span>
+        <span>{{ ticket.title }}</span>
+        <span>{{ ticket.createdAt?.substring(0, 10) }}</span>
+        <span>
+          <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
+            {{ ticket.status }}
+          </span>
+        </span>
+        <span>{{ ticket.description }}</span>
+      </div>
+
+      <div *ngIf="closedTickets.length === 0"
+           style="padding:20px; color:var(--text-muted); text-align:center;">
+        No resolved or closed tickets found.
+      </div>
+    </ng-container>
 
   </div>
 </div>

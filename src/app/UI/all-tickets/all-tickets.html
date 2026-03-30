@@ -30,10 +30,10 @@
       <span>{{ ticket.createdAt?.substring(0, 10) }}</span>
       <!-- Zeile 29 mit date pipe LÖSCHEN! -->
       <span>
-  <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
-    {{ ticket.status }}
-  </span>
-</span>
+          <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
+              {{ ticket.status }}
+          </span>
+      </span>
       <span>{{ ticket.description }}</span>
     </div>
 

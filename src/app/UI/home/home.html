@@ -3,21 +3,33 @@
 
 <div class="main-content">
 
-  <!-- SUPPORT role only: All Tickets card at the top -->
-  <div *ngIf="isSupport" class="card-nav-full" (click)="goToAllTickets()">
-    <h2>All Tickets</h2>
-    <p>Track the progress of all Open issues</p>
+  <!-- Welcome -->
+  <div class="welcome-section">
+    <h1 class="welcome-title">Welcome back, {{ username }}</h1>
+    <p class="welcome-sub">What would you like to do today?</p>
   </div>
 
-  <!-- All users: 2 cards -->
+  <!-- SUPPORT only: All Tickets -->
+  <div *ngIf="isSupport" class="card-nav-full" (click)="goToAllTickets()">
+    <div class="card-icon">&#128203;</div>
+    <h2>All Tickets</h2>
+    <p>View and manage all open issues across the organisation</p>
+    <div class="card-arrow">&#8594;</div>
+  </div>
+
+  <!-- Cards for all users -->
   <div class="card-grid">
     <div class="card-nav" (click)="goToMyTickets()">
+      <div class="card-icon blue">&#127915;</div>
       <h2>My Tickets</h2>
-      <p>Track the progress of your already registered issues</p>
+      <p>Track the progress of your registered issues</p>
+      <div class="card-arrow">&#8594;</div>
     </div>
     <div class="card-nav" (click)="goToReporting()">
-      <h2>Issues Reporting</h2>
-      <p>i.e. Services, Hardware or Software have stopped working</p>
+      <div class="card-icon orange">&#9888;&#65039;</div>
+      <h2>Report an Issue</h2>
+      <p>Services, hardware or software have stopped working</p>
+      <div class="card-arrow">&#8594;</div>
     </div>
   </div>
 

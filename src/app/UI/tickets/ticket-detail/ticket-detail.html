@@ -9,13 +9,12 @@
 <div class="main-content">
   <div class="form-card" *ngIf="ticket">
 
-    <h1 style="text-align:center; font-size:1.8rem; font-weight:700; margin-bottom:28px;">
-      {{ ticket.number }}
-    </h1>
+    <div class="ticket-number">{{ ticket.number }}</div>
 
-    <div class="form-row" style="margin-bottom:20px;">
+    <!-- Opened by + Title -->
+    <div class="form-row">
       <div class="form-group">
-        <label>Opend by</label>
+        <label>Opened by</label>
         <input class="form-control" type="text" [value]="ticket.openedBy" readonly />
       </div>
       <div class="form-group">
@@ -24,27 +23,64 @@
       </div>
     </div>
 
+    <!-- Status + Created -->
+    <div class="form-row">
+      <div class="form-group">
+        <label>Status</label>
+        <select
+          *ngIf="isSupport"
+          class="form-control"
+          [(ngModel)]="ticket.status"
+          (ngModelChange)="onStatusChange($event)"
+          [ngClass]="getStatusClass(ticket.status)">
+          <option *ngFor="let s of statusOptions" [value]="s">{{ s }}</option>
+        </select>
+        <div *ngIf="!isSupport">
+          <span class="status-badge" [ngClass]="getStatusClass(ticket.status)">
+            {{ ticket.status }}
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Created</label>
+        <input class="form-control" type="text"
+               [value]="ticket.createdAt?.substring(0, 10)" readonly />
+      </div>
+    </div>
+
+    <!-- Description -->
     <div class="form-group">
       <label>Detailed description</label>
       <textarea class="form-control" [value]="ticket.description" readonly></textarea>
     </div>
 
-    <div class="form-group">
-      <label>comments</label>
-      <div class="comments-list">
-        <div *ngFor="let comment of ticket.comments" class="comment-item">
-          {{ comment }}
+    <!-- Comments Section -->
+    <div class="section-label"><span>Comments</span></div>
+
+    <div class="comments-section">
+      <div *ngFor="let comment of ticket.comments" class="comment-card">
+        <div class="comment-avatar"
+             [style.background]="getAvatarColor(comment.author)">
+          {{ comment.author?.charAt(0) }}
         </div>
-        <div *ngIf="!ticket.comments || ticket.comments.length === 0"
-             style="color:var(--text-muted); font-size:0.85rem;">
-          No comments yet.
+        <div class="comment-body">
+          <div class="comment-meta">
+            <span class="comment-author">{{ comment.author }}</span>
+            <span class="comment-time">{{ formatDate(comment.createdAt) }}</span>
+          </div>
+          <div class="comment-text">{{ comment.text }}</div>
         </div>
       </div>
+
+      <div *ngIf="!ticket.comments || ticket.comments.length === 0" class="no-comments">
+        No comments yet — be the first to write one.
+      </div>
+
       <div class="comment-input-row">
         <input
           type="text"
           [(ngModel)]="newComment"
-          placeholder="Add a comment..."
+          placeholder="Write a comment..."
           (keyup.enter)="addComment()"
         />
         <button class="btn-send" (click)="addComment()">&#10148;</button>

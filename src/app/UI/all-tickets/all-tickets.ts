@@ -45,13 +45,12 @@ ngOnInit(): void {
   }
 
   getStatusClass(status: string): string {
-    const map: any = {
-      'Open':        'status-open',
-      'On progress': 'status-progress',
-      'Done':        'status-done',
-      'Close':       'status-close'
-    };
-    return map[status] || '';
+    const s = status?.toUpperCase();
+    if (s === 'OPEN')                                         return 'status-open';
+    if (s === 'ON PROGRESS' || s === 'IN_PROGRESS' || s === 'ON_PROGRESS') return 'status-progress';
+    if (s === 'DONE')                                         return 'status-done';
+    if (s === 'CLOSE' || s === 'CLOSED')                      return 'status-close';
+    return '';
   }
 
   openTicket(id: number): void { this.router.navigate(['/tickets', id]); }

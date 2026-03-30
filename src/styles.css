@@ -310,3 +310,9 @@ textarea.form-control { border-radius: var(--radius-md); resize: vertical; min-h
   transition: background 0.2s;
 }
 .btn-login:hover { background: #1a1ab0; }
+
+:host, app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

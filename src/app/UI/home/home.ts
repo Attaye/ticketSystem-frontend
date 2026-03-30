@@ -15,11 +15,13 @@ import { FooterComponent } from '../../core/footer/footer';
 })
 export class HomeComponent implements OnInit {
   isSupport: boolean = false;
+  username: string = '';
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isSupport = this.authService.isSupport();
+    this.username = this.authService.getUsername() || 'User';
   }
 
   goToMyTickets(): void  { this.router.navigate(['/tickets']);     }
